@@ -14,14 +14,6 @@ let sliders = [];
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 
-// EnterPress
-var SearchInput = document.getElementById("search");
-SearchInput.addEventListener("keyup", function(event) {
-    if (event.keyCode === 13) {
-        event.preventDefault();
-        document.getElementById("search-btn").click();
-    }
-});
 
 // show images 
 const showImages = images => {
@@ -32,14 +24,19 @@ const showImages = images => {
     images.forEach(image => {
         let div = document.createElement('div');
         div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-        div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+        div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">
+        <h6 class="pl-3">views: ${image.views}</h6>
+        <h6 class="pl-3">downloads: ${image.downloads}</h6>
+        `;
         gallery.appendChild(div);
     });
     spinnerToggle();
+
+    errorMessage();
 }
 
 const getImages = query => {
-    // spiner
+    // spinner
     spinnerToggle();
     fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
         .then(response => response.json())
@@ -130,7 +127,32 @@ searchBtn.addEventListener('click', function() {
     const search = document.getElementById('search');
     getImages(search.value)
     sliders.length = 0;
+
 })
+
+// EnterPress
+var SearchInput = document.getElementById("search");
+SearchInput.addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.getElementById("search-btn").click();
+    }
+});
+
+function errorMessage() {
+    var error = document.getElementById("showError");
+    if (search.value === '') {
+
+        imagesArea.style.display = 'none';
+        // Changing content and color of content 
+        error.textContent = "Please! write something on searchfield";
+        error.style.color = "red";
+        error.style.fontSize = "35px";
+        error.style.fontWeight = "700";
+    } else {
+        showImages(images);
+    }
+}
 
 sliderBtn.addEventListener('click', function() {
     createSlider();
