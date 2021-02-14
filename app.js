@@ -76,7 +76,8 @@ const createSlider = () => {
     imagesArea.style.display = 'none';
     const duration = document.getElementById('doration').value || 1000;
     if (duration < 0) {
-        changeSlide();
+        alert('Please! set a Positive time duration value & Search Again');
+        return
     }
     sliders.forEach(slide => {
         let item = document.createElement('div')
@@ -149,9 +150,7 @@ function errorMessage() {
         error.style.fontSize = "35px";
         error.style.fontWeight = "700";
         error.classList.toggle('d-none');
-    } else {
-        showImages(images);
-    }
+    } else {}
 }
 
 sliderBtn.addEventListener('click', function() {
