@@ -31,12 +31,10 @@ const showImages = images => {
         gallery.appendChild(div);
     });
     spinnerToggle();
-
     errorMessage();
 }
 
 const getImages = query => {
-    // spinner
     spinnerToggle();
     fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
         .then(response => response.json())
@@ -132,7 +130,7 @@ searchBtn.addEventListener('click', function() {
 
 // EnterPress
 var SearchInput = document.getElementById("search");
-SearchInput.addEventListener("keyup", function(event) {
+SearchInput.addEventListener("keypress", function(event) {
     if (event.keyCode === 13) {
         event.preventDefault();
         document.getElementById("search-btn").click();
@@ -141,6 +139,7 @@ SearchInput.addEventListener("keyup", function(event) {
 
 function errorMessage() {
     var error = document.getElementById("showError");
+    error.classList.toggle('d-none');
     if (search.value === '') {
 
         imagesArea.style.display = 'none';
@@ -149,6 +148,7 @@ function errorMessage() {
         error.style.color = "red";
         error.style.fontSize = "35px";
         error.style.fontWeight = "700";
+        error.classList.toggle('d-none');
     } else {
         showImages(images);
     }
@@ -158,6 +158,7 @@ sliderBtn.addEventListener('click', function() {
     createSlider();
 })
 
+// loading spinner
 const spinnerToggle = () => {
     const spinner = document.getElementById('loadingSpinner');
     const galleryImages = document.getElementById('gallery-container');
