@@ -25,8 +25,8 @@ const showImages = images => {
         let div = document.createElement('div');
         div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
         div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">
-        <h6 class="pl-3">views: ${image.views}</h6>
-        <h6 class="pl-3">downloads: ${image.downloads}</h6>
+        <h6 class="pl-3">Views: ${image.views}</h6>
+        <h6 class="pl-3">Downloads: ${image.downloads}</h6>
         `;
         gallery.appendChild(div);
     });
